@@ -7,6 +7,7 @@ class Tweet
   field :tags, type: Array
   field :time, type: DateTime
   field :word_bag, type: Array
+  field :is_retweet, type: Boolean
   has_and_belongs_to_many :words, index: true
 
   # Associations
@@ -53,7 +54,7 @@ class Tweet
     tags = tags_from_hash(hash)
     user = User.create_from_hash(hash[:user])
     create(text: hash[:text], tags: tags, user: user, 
-      time: hash[:created_at], raw: hash)
+      time: hash[:created_at])
   end
 
   def self.stream(tracks, args = {})
@@ -61,17 +62,8 @@ class Tweet
     $twitter_client.track(*tracks) do |status|
       if status.lang == "en" and !status.retweeted_status?
         Tweet.create_from_hash(status.to_hash)
-        # print tweet.text + "\n"
-        # ProcessTweetJob.perform_later(status.to_hash)
       end
     end
-  end
-
-  def set_images_from_hash
-    items = self.raw[:entities][:media]
-    items.each do |m|
-      Image.create_from_hash(m, self)
-    end if items and items.is_a?(Array)
   end
 
   def set_words
