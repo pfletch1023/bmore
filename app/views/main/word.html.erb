@@ -5,7 +5,7 @@
   <% @tweets.each do |t| %>
     <li>
       <% if url = t.tweet_url %>
-        <%= link_to t.time, url %>
+        <%= link_to t.time, url, target: "_blank" %>
       <% else %>
         <%= t.time %>
       <% end %>
