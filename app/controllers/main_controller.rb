@@ -7,4 +7,9 @@ class MainController < ApplicationController
     @words = Word.most_popular.limit(100)
   end
 
+  def word
+    @word = Word.find_by(string: params[:word])
+    @tweets = @word.tweets.order_by(time: :desc).limit(100)
+  end
+
 end

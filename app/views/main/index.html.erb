@@ -4,6 +4,8 @@
 
 <ol>
   <% @words.each do |word| %>
-    <li><%= word.string %>: <%= word.tweets_count %></li>
+    <li>
+      <a href="/words/<%= word.string %>"><%= word.string %></a>: <%= word.tweets_count %>
+    </li>
   <% end %>
 </ol>
