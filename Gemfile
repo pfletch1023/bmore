@@ -27,10 +27,16 @@ gem 'mongoid', '~> 4.0.0'
 # Twitter
 gem 'tweetstream'
 
+# Daemons
+gem 'daemons'
+
 # Redis and Resque
 gem 'redis'
 gem 'resque'
 gem 'resque-scheduler'
+
+# Heroku
+gem 'rails_12factor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

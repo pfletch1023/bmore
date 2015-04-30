@@ -17,7 +17,7 @@ class Tweet
   validates_presence_of :text, :user_id, :time
 
   # Callbacks
-  after_create :set_images_from_hash
+  # after_create :post_process
   after_create :set_words
 
   # Instance methods
@@ -59,14 +59,13 @@ class Tweet
   def self.stream(tracks, args = {})
     tracks = [tracks] unless tracks.is_a?(Array)
     $twitter_client.track(*tracks) do |status|
-      if status.lang == "en"
-        print status.text + "\n"
-        ProcessTweetJob.perform_later(status.to_hash)
+      if status.lang == "en" and !status.retweeted_status?
+        Tweet.create_from_hash(status.to_hash)
+        # print tweet.text + "\n"
+        # ProcessTweetJob.perform_later(status.to_hash)
       end
     end
   end
-
-  private
 
   def set_images_from_hash
     items = self.raw[:entities][:media]
@@ -79,6 +78,12 @@ class Tweet
     word_bag_from_text.each do |w|
       self.words << Word.find_or_create_by(string: w)
     end
+  end
+
+  private
+
+  def post_process
+    ProcessTweetJob.perform_later(self)
   end
  
 end
