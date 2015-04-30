@@ -24,6 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'mongoid', '~> 4.0.0'
 
 # Twitter
+gem 'twitter'
 gem 'tweetstream'
 
 # Daemons

@@ -8,6 +8,7 @@ class Tweet
   field :time, type: DateTime
   field :word_bag, type: Array
   field :is_retweet, type: Boolean
+  field :tid, type: String
   has_and_belongs_to_many :words, index: true
 
   # Associations
@@ -45,6 +46,15 @@ class Tweet
     return string.split - stops
   end
 
+  def tweet_url
+    begin
+      if tid and tweet = $twitter_rest_client.status(tid)
+        return tweet.url.to_s
+      end
+    rescue
+    end
+  end
+
   # Class methods
   def self.tags_from_hash(hash)
     return hash[:entities][:hashtags].map { |t| t[:text] }
@@ -54,7 +64,7 @@ class Tweet
     tags = tags_from_hash(hash)
     user = User.create_from_hash(hash[:user])
     create(text: hash[:text], tags: tags, user: user, 
-      time: hash[:created_at])
+      time: hash[:created_at], tid: hash[:id_str])
   end
 
   def self.stream(tracks, args = {})

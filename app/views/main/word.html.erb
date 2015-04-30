@@ -3,6 +3,13 @@
 <h4>Recent Tweets:</h4>
 <ol>
   <% @tweets.each do |t| %>
-    <li><%= t.time %>: <%= t.text %></li>
+    <li>
+      <% if url = t.tweet_url %>
+        <%= link_to t.time, url %>
+      <% else %>
+        <%= t.time %>
+      <% end %>
+      <%= t.text %>
+    </li>
   <% end %>
 </ol>
