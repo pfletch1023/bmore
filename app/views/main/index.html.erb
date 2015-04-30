@@ -1,5 +1,3 @@
-<% @images.each do |img| %>
-  <span>
-    <img src="<%= img.url %>"/>
-  </span>
-<% end %>
+<div>Tweets: <%= Tweet.count %></div>
+<div>Words: <%= Word.count %></div>
+<div>Images: <%= Image.count %></div>
