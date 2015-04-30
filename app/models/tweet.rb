@@ -7,7 +7,7 @@ class Tweet
   field :tags, type: Array
   field :time, type: DateTime
   field :word_bag, type: Array
-  has_and_belongs_to_many :words
+  has_and_belongs_to_many :words, index: true
 
   # Associations
   belongs_to :user

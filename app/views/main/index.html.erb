@@ -1,3 +1,9 @@
 <div>Tweets: <%= Tweet.count %></div>
 <div>Words: <%= Word.count %></div>
 <div>Images: <%= Image.count %></div>
+
+<ol>
+  <% @words.each do |word| %>
+    <li><%= word.string %>: <%= word.tweets_count %></li>
+  <% end %>
+</ol>
