@@ -1,3 +1,5 @@
 == Tweets from Bmore
 
 This project is an attempt to gather an analyze tweets regarding the events in Baltimore following the death of Freddie Gray on April 19, 2015. The platform pulls and processes all tweets with hashtags `#Baltimore`, `#BaltimoreRiots`, and `#BaltimoreUprising`. 
+
+This project was developed for Prof. Theodore Johnson's CPSC 638 Database Architectures class.
